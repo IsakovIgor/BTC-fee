@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  btc_psql:
+    container_name: btc_psql
+    image: postgres:13.3
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PSTRGES_DB: ${POSTGRES_DB}
+      PGDATA: /data/postgres
+    volumes:
+      - .docker/db:/data/postgres
+    ports:
+      - ${POSTGRES_PORT}:5432
+    networks:
+      - btc
+    restart: "no"
+
+  btc_php:
+    container_name: btc_php
+    build: .docker/php
+    volumes:
+      - ".:/var/www/btc"
+      - .docker/php/conf/my.ini:/usr/local/etc/php/conf.d/my.ini
+    depends_on:
+      - btc_psql
+    networks:
+      - btc
+    restart: "no"
+
+  btc_nginx:
+    container_name: btc_nginx
+    image: nginx:latest
+    ports:
+      - ${EXTERNAL_NGINX_PORT}:80
+    volumes:
+      - ".:/var/www/btc"
+      - ".docker/nginx/conf.d/btc.conf:/etc/nginx/conf.d/default.conf"
+    depends_on:
+      - btc_php
+    networks:
+      - btc
+    restart: "no"
+
+networks:
+  btc:
+    name: btc
+    driver: bridge

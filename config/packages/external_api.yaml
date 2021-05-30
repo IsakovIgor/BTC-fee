@@ -1,0 +1,2 @@
+parameters:
+    blockchair_url: 'https://api.blockchair.com/bitcoin/blocks'

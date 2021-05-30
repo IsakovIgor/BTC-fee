@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BTC{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if hasErrors %}
+        <div class="row mt-5">
+            <span class="error-message">Oops. Something went wrong</span>
+        </div>
+        {% endif %}
+        <div class="row mt-5">
+            <div class="col">
+                <table class="table table-bordered">
+                    <tr>
+                        <th scope="col">Parameter</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                    {# @var params \App\Model\ParamsModel #}
+                    <tr>
+                        <td>MIN</td>
+                        <td>{{ params.min }}</td>
+                    </tr>
+                    <tr>
+                        <td>MAX</td>
+                        <td>{{ params.max }}</td>
+                    </tr>
+                    <tr>
+                        <td>AVG</td>
+                        <td>{{ params.avg }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div id="curve_chart" style="width: 1600px; height: 800px"></div>
+        </div>
+
+        <span class="hidden" id="blocks">{{ blocks|json_encode }}</span>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            const blocksElem = document.getElementById('blocks');
+
+            var dataRaw = [
+                ['id', 'fee', 'avg'],
+                ...JSON.parse(blocksElem.innerText)
+            ];
+
+            var data = google.visualization.arrayToDataTable(dataRaw);
+
+            var options = {
+                title: 'BTC fee changes in last 100 blocks',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+{% endblock %}
