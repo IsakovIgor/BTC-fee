@@ -37,11 +37,15 @@ services:
             $baseUrl: '%blockchair_url%'
             $client: '@app.client.http'
 
+    app.parser.blockchair_parser:
+        class: App\Parser\BlockchairParser
+
     app.service.external_api.blockchair_api:
         class: App\Service\ExternalApi\BlockchairApi
         public: true
         arguments:
             $client: '@app.client.blockchair'
+            $parser: '@app.parser.blockchair_parser'
 
     App\Controller\IndexController:
         class: App\Controller\IndexController

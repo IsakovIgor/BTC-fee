@@ -6,7 +6,6 @@ namespace App\Client;
 
 use App\Exception\ExternalApiException;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use JetBrains\PhpStorm\Pure;
 use Zend\Json\Json;

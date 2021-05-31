@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\ExternalApi;
 
 use App\Client\ApiClientInterface;
+use App\Parser\ParserInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -14,16 +15,16 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 abstract class ExternalApi implements ExternalApiInterface
 {
     private ApiClientInterface $client;
-    private DenormalizerInterface $denormalizer;
+    private ParserInterface $parser;
 
     /**
      * @param ApiClientInterface $client
-     * @param DenormalizerInterface $denormalizer
+     * @param ParserInterface $parser
      */
-    public function __construct(ApiClientInterface $client, DenormalizerInterface $denormalizer)
+    public function __construct(ApiClientInterface $client, ParserInterface $parser)
     {
         $this->client = $client;
-        $this->denormalizer = $denormalizer;
+        $this->parser = $parser;
     }
 
     /**
@@ -40,10 +41,10 @@ abstract class ExternalApi implements ExternalApiInterface
     }
 
     /**
-     * @return DenormalizerInterface
+     * @return ParserInterface
      */
-    protected function getSerializer(): DenormalizerInterface
+    protected function getParser(): ParserInterface
     {
-        return $this->denormalizer;
+        return $this->parser;
     }
 }
