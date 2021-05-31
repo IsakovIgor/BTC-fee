@@ -535,5 +535,8 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "zendframework/zend-json": {
+        "version": "2.6.0"
     }
 }

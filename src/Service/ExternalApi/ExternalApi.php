@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ExternalApi;
 
-use GuzzleHttp\ClientInterface;
+use App\Client\ApiClientInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -13,18 +13,15 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
  */
 abstract class ExternalApi implements ExternalApiInterface
 {
-    private string $baseUrl;
-    private ClientInterface $client;
+    private ApiClientInterface $client;
     private DenormalizerInterface $denormalizer;
 
     /**
-     * @param string $baseUrl
-     * @param ClientInterface $client
+     * @param ApiClientInterface $client
      * @param DenormalizerInterface $denormalizer
      */
-    public function __construct(string $baseUrl, ClientInterface $client, DenormalizerInterface $denormalizer)
+    public function __construct(ApiClientInterface $client, DenormalizerInterface $denormalizer)
     {
-        $this->baseUrl = $baseUrl;
         $this->client = $client;
         $this->denormalizer = $denormalizer;
     }
@@ -35,17 +32,9 @@ abstract class ExternalApi implements ExternalApiInterface
     abstract public function getLastBlocks(int $number = 100): array;
 
     /**
-     * @return string
+     * @return ApiClientInterface
      */
-    protected function getBaseUrl(): string
-    {
-        return $this->baseUrl;
-    }
-
-    /**
-     * @return ClientInterface
-     */
-    protected function getClient(): ClientInterface
+    protected function getClient(): ApiClientInterface
     {
         return $this->client;
     }

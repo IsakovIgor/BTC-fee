@@ -27,16 +27,21 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    app.http.client:
+    app.client.http:
         class: GuzzleHttp\Client
         public: true
+
+    app.client.blockchair:
+        class: App\Client\BlockchairApiClient
+        arguments:
+            $baseUrl: '%blockchair_url%'
+            $client: '@app.client.http'
 
     app.service.external_api.blockchair_api:
         class: App\Service\ExternalApi\BlockchairApi
         public: true
         arguments:
-            $baseUrl: '%blockchair_url%'
-            $client: '@app.http.client'
+            $client: '@app.client.blockchair'
 
     App\Controller\IndexController:
         class: App\Controller\IndexController
