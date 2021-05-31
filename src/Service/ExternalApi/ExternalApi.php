@@ -6,7 +6,6 @@ namespace App\Service\ExternalApi;
 
 use App\Client\ApiClientInterface;
 use App\Parser\ParserInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Class ExternalApi

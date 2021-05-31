@@ -8,10 +8,10 @@ use App\Model\ExternalSourceInterface;
 use App\Model\ParamsModel;
 
 /**
- * Class ParamsCalculator
+ * Trait ParamsCalculatorTrait
  * @package App\Calculator
  */
-class ParamsCalculator
+trait ParamsCalculatorTrait
 {
     /**
      * Find min, max, sum and number of items
@@ -19,7 +19,7 @@ class ParamsCalculator
      * @param ExternalSourceInterface[] $models
      * @return ParamsModel
      */
-    public static function calculateParams(array $models): ParamsModel
+    protected function calculateParams(array $models): ParamsModel
     {
         return \array_reduce($models, function(?ParamsModel $params, ExternalSourceInterface $m) {
             $data = $m->getDataForParams();

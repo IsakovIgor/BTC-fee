@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Calculator\ParamsCalculator;
+use App\Calculator\ParamsCalculatorTrait;
 use App\Model\ExternalSourceInterface;
 use App\Service\ExternalApi\ExternalApi;
 use App\Service\ExternalApi\ExternalApiInterface;
@@ -13,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
+    use ParamsCalculatorTrait;
+
     private ExternalApiInterface $api;
     private LoggerInterface $logger;
 
@@ -38,7 +41,7 @@ class IndexController extends AbstractController
             $hasErrors = true;
         }
 
-        $params = ParamsCalculator::calculateParams($blocks);
+        $params = $this->calculateParams($blocks);
 
         return $this->render('index/index.html.twig', [
             'hasErrors' => $hasErrors,
