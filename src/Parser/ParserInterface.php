@@ -14,9 +14,9 @@ interface ParserInterface
 {
     /**
      * @param array $data
-     * @param string $class
+     * @param string $model
      * @return array
      * @throws ParseExternalApiException
      */
-    public function parse(array $data, string $class): array;
+    public function parse(array $data, string $model): array;
 }
