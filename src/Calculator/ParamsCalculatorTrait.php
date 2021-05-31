@@ -19,7 +19,7 @@ trait ParamsCalculatorTrait
      * @param ExternalSourceInterface[] $models
      * @return ParamsModel
      */
-    protected function calculateParams(array $models): ParamsModel
+    public function calculateParams(array $models): ParamsModel
     {
         return \array_reduce($models, function(?ParamsModel $params, ExternalSourceInterface $m) {
             $data = $m->getDataForParams();

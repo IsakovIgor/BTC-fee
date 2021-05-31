@@ -15,6 +15,8 @@ use Zend\Json\Json;
  */
 class BlockchairParser extends Parser
 {
+    public const DENORMALIZER_FORMAT = 'json';
+
     /**
      * @param DenormalizerInterface $denormalizer
      */
@@ -35,6 +37,6 @@ class BlockchairParser extends Parser
             );
         }
 
-        return $this->getDenormalizer()->denormalize($data['data'], $model, 'json');
+        return $this->getDenormalizer()->denormalize($data['data'], $model, self::DENORMALIZER_FORMAT);
     }
 }

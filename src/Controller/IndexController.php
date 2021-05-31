@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Calculator\ParamsCalculator;
 use App\Calculator\ParamsCalculatorTrait;
 use App\Model\ExternalSourceInterface;
 use App\Service\ExternalApi\ExternalApi;

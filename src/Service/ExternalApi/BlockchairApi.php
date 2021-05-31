@@ -16,7 +16,7 @@ use JetBrains\PhpStorm\Pure;
  */
 class BlockchairApi extends ExternalApi
 {
-    private const MODEL = 'App\Model\BlockchairModel[]';
+    public const MODEL = 'App\Model\BlockchairModel[]';
 
     /**
      * @param ApiClientInterface $client

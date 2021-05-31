@@ -16,6 +16,8 @@ use Zend\Json\Json;
  */
 class BlockchairApiClient extends RestApiClient
 {
+    public const HTTP_METHOD = 'GET';
+
     /**
      * @param string $baseUrl
      * @param GuzzleClient $client
@@ -36,7 +38,7 @@ class BlockchairApiClient extends RestApiClient
             'limit' => $number,
         ]);
 
-        $request = new Request('GET', $query);
+        $request = new Request(self::HTTP_METHOD, $query);
 
         $response = $this->getClient()->send($request);
         if ($response->getStatusCode() !== 200) {
